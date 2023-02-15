@@ -1,33 +1,28 @@
 package me.ethan.helloboot;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @Configuration // Bean 의 구성정보를 가지고 있는 class 이다.
 @ComponentScan // 하위 패키지들을 모두 뒤지며, @Component 라고 적힌 오브젝트를 반환함
 public class HellobootApplication {
 
-    public static void main(String[] args) {
-        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext(){
-            @Override
-            protected void onRefresh() {
-                super.onRefresh();
-                ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
-                WebServer webServer = serverFactory.getWebServer(servletContext -> {
-                    servletContext.addServlet("dispatcherServlet",
-                            new DispatcherServlet(this))
-                            .addMapping("/*");
-                });
-                webServer.start();
-            }
-        };
-        applicationContext.register(HellobootApplication.class); // HelloBootApplication 에서 코드상 Bean 으로 된 설정정보가 있으니 그걸 보고 설정해라!
-        applicationContext.refresh();
+    @Bean
+    public ServletWebServerFactory servletWebServerFactory(){
+        return new TomcatServletWebServerFactory();
     }
 
+    @Bean
+    public DispatcherServlet dispatcherServlet(){
+        return new DispatcherServlet();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(HellobootApplication.class, args);
+    }
 }
