@@ -3,23 +3,14 @@ package me.ethan.helloboot;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @Configuration // Bean 의 구성정보를 가지고 있는 class 이다.
+@ComponentScan // 하위 패키지들을 모두 뒤지며, @Component 라고 적힌 오브젝트를 반환함
 public class HellobootApplication {
-
-    @Bean
-    public HelloController helloController(HelloService helloService){
-        return new HelloController(helloService);
-    }
-
-    @Bean
-    public HelloService helloService(){
-        return new SimpleHelloService();
-    }
 
     public static void main(String[] args) {
         AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext(){
