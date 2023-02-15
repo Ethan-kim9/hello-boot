@@ -3,19 +3,26 @@ package me.ethan.helloboot;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.web.context.support.GenericWebApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+@Configuration // Bean 의 구성정보를 가지고 있는 class 이다.
 public class HellobootApplication {
 
+    @Bean
+    public HelloController helloController(HelloService helloService){
+        return new HelloController(helloService);
+    }
+
+    @Bean
+    public HelloService helloService(){
+        return new SimpleHelloService();
+    }
+
     public static void main(String[] args) {
-
-        /* *
-         * 기존의 스프링 컨테이너 초기화, 스프링 컨테이너를 이용해 서블릿 컨테이너를 사용하는 두가지 절차를,
-         * 스프링 컨테이너 초기화와 함께 서블릿 컨테이너도 모두 초기화 되게 통합
-         */
-
-        GenericWebApplicationContext applicationContext = new GenericWebApplicationContext(){
+        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext(){
             @Override
             protected void onRefresh() {
                 super.onRefresh();
@@ -28,8 +35,7 @@ public class HellobootApplication {
                 webServer.start();
             }
         };
-        applicationContext.registerBean(HelloController.class);
-        applicationContext.registerBean(SimpleHelloService.class);
+        applicationContext.register(HellobootApplication.class); // HelloBootApplication 에서 코드상 Bean 으로 된 설정정보가 있으니 그걸 보고 설정해라!
         applicationContext.refresh();
     }
 
