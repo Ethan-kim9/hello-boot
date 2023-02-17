@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)// 클래스, 인터페이스, Enum
 @ComponentScan
 @Configuration
-@EnableMyAutoConfigration
+@EnableMyAutoConfiguration
 public @interface MySpringBootApplication {
 }
