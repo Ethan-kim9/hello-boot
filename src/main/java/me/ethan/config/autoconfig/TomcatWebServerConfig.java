@@ -1,6 +1,7 @@
 package me.ethan.config.autoconfig;
 
 import me.ethan.config.ConditionalMyOnClass;
+import me.ethan.config.EnableMyConfigurationProperties;
 import me.ethan.config.MyAutoConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 
 @MyAutoConfiguration
 @ConditionalMyOnClass("org.apache.catalina.startup.Tomcat")
+@EnableMyConfigurationProperties(ServerProperties.class)
 public class TomcatWebServerConfig {
 
     @Value("${contextPath:}")

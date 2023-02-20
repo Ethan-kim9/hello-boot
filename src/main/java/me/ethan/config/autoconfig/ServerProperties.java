@@ -1,5 +1,9 @@
 package me.ethan.config.autoconfig;
 
+
+import me.ethan.config.MyConfigurationProperties;
+
+@MyConfigurationProperties(prefix = "server")
 public class ServerProperties {
 
     private String contextPath;
