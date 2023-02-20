@@ -2,3 +2,4 @@ me.ethan.config.autoconfig.TomcatWebServerConfig
 me.ethan.config.autoconfig.JettyWebServerConfig
 me.ethan.config.autoconfig.DispatcherServletConfig
 me.ethan.config.autoconfig.PropertyPlaceholderConfig
+me.ethan.config.autoconfig.ServerPropertiesConfig
