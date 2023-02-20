@@ -1,5 +1,6 @@
 package me.ethan.config.autoconfig;
 
+import com.zaxxer.hikari.HikariDataSource;
 import me.ethan.config.ConditionalMyOnClass;
 import me.ethan.config.EnableMyConfigurationProperties;
 import me.ethan.config.MyAutoConfiguration;
@@ -14,6 +15,19 @@ import java.sql.Driver;
 @ConditionalMyOnClass("org.springframework.jdbc.core.JdbcOperations")
 @EnableMyConfigurationProperties(MyDataSourceProperties.class)
 public class DataSourceConfig {
+
+    @Bean
+    @ConditionalMyOnClass("com.zaxxer.hikari.HikariDataSource")
+    @ConditionalOnMissingBean
+    DataSource hikariDataSource(MyDataSourceProperties properties){
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setDriverClassName(properties.getDriverClassName());
+        dataSource.setJdbcUrl(properties.getUrl());
+        dataSource.setUsername(properties.getUsername());
+        dataSource.setPassword(properties.getPassword());
+        return dataSource;
+    }
+
     @Bean
     @ConditionalOnMissingBean
     DataSource dataSource(MyDataSourceProperties properties) throws ClassNotFoundException {
