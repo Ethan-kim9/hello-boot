@@ -1,5 +1,6 @@
 package me.ethan.config.autoconfig;
 
+import me.ethan.config.MyAutoConfiguration;
 import me.ethan.config.MyConfigurationProperties;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 import static org.springframework.core.annotation.AnnotationUtils.getAnnotationAttributes;
 
+@MyAutoConfiguration
 public class PropertyPostProcessorConfig {
     @Bean
     BeanPostProcessor propertyPostProcessor(Environment environment){

@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(MyAutoConfigurationImportSelector.class) // 다른패키지의 빈을 import 해줌, componentScan 을 한 것이 아님을 기억
+@Import(MyAutoConfigImportSelector.class)
 public @interface EnableMyAutoConfiguration {
 }
