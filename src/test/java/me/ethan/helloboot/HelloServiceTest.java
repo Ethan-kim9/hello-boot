@@ -9,7 +9,7 @@ class HelloServiceTest {
 
     @Test
     void simpleHelloService(){
-        SimpleHelloService helloService =new SimpleHelloService();
+        SimpleHelloService helloService = new SimpleHelloService(helloRepositoryStub);
 
         String test = helloService.sayHello("test");
 
@@ -17,6 +17,12 @@ class HelloServiceTest {
         // 고립된 테스트가 가능하다.
     }
 
+    private static HelloRepository helloRepositoryStub = new HelloRepository() {
+        @Override
+        public void increaseCount(String name) {}
+        @Override
+        public Hello findHello(String name) {return null;}
+    };
 
     @Test
     void helloDecorator(){
